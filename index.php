@@ -6,11 +6,13 @@ use Discord\Discord;
 use Discord\Parts\Channel\Message;
 use Discord\WebSockets\Intents;
 use Discord\WebSockets\Event;
+use Dotenv\Dotenv;
+
+$dotEnv = Dotenv::createImmutable(__DIR__)->load();
 
 $discord = new Discord([
-    'token' => 'token_from_env',
+    'token' => $_ENV['BOT_TOKEN'],
     'intents' => Intents::getDefaultIntents()
-    //      | Intents::MESSAGE_CONTENT, // Note: MESSAGE_CONTENT is privileged, see https://dis.gd/mcfaq
 ]);
 
 $discord->on('ready', function (Discord $discord) {

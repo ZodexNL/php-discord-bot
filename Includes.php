@@ -3,10 +3,17 @@
 // Include all files in the 'src' directory
 
 $srcDir = 'src/';
-$allFolders = array_diff(scandir($srcDir), array('..', '.'));
 
-foreach ($allFolders as $folder) {
-    foreach (glob($srcDir . $folder . '/*.php') as $file) {
-        include $file;
+function includeFiles($dir)
+{
+    $files = glob($dir . '/*');
+    foreach ($files as $file) {
+        if (is_file($file)) {
+            include $file;
+        } elseif (is_dir($file)) {
+            includeFiles($file);
+        }
     }
 }
+
+includeFiles($srcDir);

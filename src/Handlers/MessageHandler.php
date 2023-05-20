@@ -5,7 +5,6 @@ namespace src\Handlers;
 use Discord\Discord;
 use Discord\Parts\Channel\Message;
 // TODO: find a way to use all cmds
-use src\Messages\Ping;
 
 class MessageHandler
 {

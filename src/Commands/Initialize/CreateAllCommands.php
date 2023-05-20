@@ -41,13 +41,6 @@ class CreateAllCommands
     private function create(Discord $discord): void
     {
         foreach ($this->cmdArr as $file) {
-
-            echo $file::getName(), PHP_EOL;
-            echo $file::getDescription(), PHP_EOL;
-            echo $file::getOptions($discord), PHP_EOL;
-            echo $file::getType(), PHP_EOL;
-
-
             $op = $file::getOptions($discord);
 
             if (!$op === null) {

@@ -30,6 +30,8 @@ class CreateAllCommands
 
     /**
      * 
+     * Create all commands from the commands dir
+     * 
      * @param Discord $discord 
      * @return void 
      * @throws LengthException 

@@ -45,7 +45,17 @@ class CreateAllCommands
         foreach ($this->cmdArr as $file) {
             $op = $file::getOptions($discord);
 
-            if (!$op === null) {
+            if ($op === null) {
+                $discord->application->commands->save(
+                    $discord->application->commands->create(
+                        CommandBuilder::new()
+                            ->setName($file::getName())
+                            ->setDescription($file::getDescription())
+                            ->setType($file::getType())
+                            ->toArray()
+                    )
+                );
+            } else {
                 $discord->application->commands->save(
                     $discord->application->commands->create(
                         CommandBuilder::new()
@@ -56,19 +66,7 @@ class CreateAllCommands
                             ->toArray()
                     )
                 );
-
-                continue;
             }
-
-            $discord->application->commands->save(
-                $discord->application->commands->create(
-                    CommandBuilder::new()
-                        ->setName($file::getName())
-                        ->setDescription($file::getDescription())
-                        ->setType($file::getType())
-                        ->toArray()
-                )
-            );
         }
     }
 }

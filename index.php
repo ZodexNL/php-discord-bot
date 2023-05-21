@@ -21,11 +21,14 @@ $discord = new Discord([
 ]);
 
 $discord->on('ready', function (Discord $discord) {
-    new CreateAllCommands($discord);
+    // Create all commands
+    $commands = new CreateAllCommands($discord, false);
+    // Initialize mesage listener
     $msgListener = new MessageHandler;
+    // Initialize command handler
+
+    // Bot is ready
     echo "Bot is ready!", PHP_EOL;
-
-
 
     // Listen for messages.
     $discord->on(Event::MESSAGE_CREATE, function (Message $message, Discord $discord) use ($msgListener) {
@@ -33,11 +36,12 @@ $discord->on('ready', function (Discord $discord) {
         $msgListener->handle($message, $discord);
     });
 
-
-    // Listen for slash commands TODO: make commandhandler
-    $discord->listenCommand('ping', function (Interaction $interaction) {
-        $interaction->respondWithMessage(MessageBuilder::new()->setContent('Pong!'));
-    });
+    // Listen for commands
+    foreach ($commands->cmdNameArr as $key => $value) {
+        $discord->listenCommand($key, function (Interaction $interaction) use ($key, $value) {
+            $value::getResponse($interaction);
+        });
+    }
 });
 
 $discord->run();

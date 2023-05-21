@@ -12,20 +12,25 @@ use Exception;
 
 class CreateAllCommands
 {
-    private $cmdArr = [];
+    public $cmdArr = [];
+    public $cmdNameArr = [];
 
-    public function __construct(Discord $discord)
+    public function __construct(Discord $discord, bool $run)
     {
         $directory = 'src/Commands/Commands/';
         $scanned_directory = array_diff(scandir($directory), array('..', '.'));
 
         foreach ($scanned_directory as &$command) {
+            $name = strtolower(str_replace('.php', '', $command));
             $command = "src\Commands\Commands\\" . str_replace('.php', '', $command);
+            $this->cmdNameArr[$name] = $command;
         }
 
         $this->cmdArr = $scanned_directory;
 
-        $this->create($discord);
+        if ($run) {
+            $this->create($discord);
+        }
     }
 
     /**

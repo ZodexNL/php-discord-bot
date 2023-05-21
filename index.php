@@ -3,7 +3,6 @@
 include __DIR__ . '/vendor/autoload.php';
 include './autoload.php';
 
-use Discord\Builders\MessageBuilder;
 use Discord\Discord;
 use Discord\Parts\Channel\Message;
 use Discord\Parts\Interactions\Interaction;
@@ -25,7 +24,6 @@ $discord->on('ready', function (Discord $discord) {
     $commands = new CreateAllCommands($discord, false);
     // Initialize mesage listener
     $msgListener = new MessageHandler;
-    // Initialize command handler
 
     // Bot is ready
     echo "Bot is ready!", PHP_EOL;

@@ -10,40 +10,45 @@ use LengthException;
 use LogicException;
 use src\Commands\Helpers\Command;
 
-
-class Ping implements Command
+class PingUser implements Command
 {
+
     /**
-     * Get the name of the command
+     * Get the name
      * @return string 
      */
     public static function getName(): string
     {
-        return "ping";
+        return "pinguser";
     }
 
     /**
-     * Return the description
+     * Get the description
      * @return string 
      */
     public static function getDescription(): string
     {
-        return "Return pong!";
+        return "Ping a user!";
     }
 
     /**
-     * Return the options or null
+     * Get the options
      * @param Discord $discord 
      * @return Option|null 
      */
     public static function getOptions(Discord $discord): Option | null
     {
-        return null;
+        return new Option($discord, [
+            'name' => 'user',
+            'description' => 'The user to ping',
+            'type' => 6,
+            'required' => true,
+        ]);
     }
 
     /**
-     * Get the type of the command
-     * @return int
+     * Get the type
+     * @return int 
      */
     public static function getType(): int
     {
@@ -51,8 +56,7 @@ class Ping implements Command
     }
 
     /**
-     * Return the response when this command is used
-     * 
+     * Get the response
      * @param Interaction $interaction 
      * @return void 
      * @throws LengthException 
@@ -60,6 +64,6 @@ class Ping implements Command
      */
     public static function getResponse(Interaction $interaction): void
     {
-        $interaction->respondWithMessage(MessageBuilder::new()->setContent('Pong!'));
+        $interaction->respondWithMessage(MessageBuilder::new()->setContent($interaction->data->resolved->users->first()));
     }
 }

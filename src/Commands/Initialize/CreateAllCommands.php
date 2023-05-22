@@ -61,16 +61,18 @@ class CreateAllCommands
                     )
                 );
             } else {
-                $discord->application->commands->save(
-                    $discord->application->commands->create(
-                        CommandBuilder::new()
-                            ->setName($file::getName())
-                            ->setDescription($file::getDescription())
-                            ->setType($file::getType())
-                            ->addOption($op)
-                            ->toArray()
-                    )
-                );
+                // Support multiple options
+                $commandBuilder = CommandBuilder::new()
+                    ->setName($file::getName())
+                    ->setDescription($file::getDescription())
+                    ->setType($file::getType());
+
+                foreach ($op as $option) {
+                    $commandBuilder->addOption($option);
+                }
+
+                $command = $commandBuilder->toArray();
+                $discord->application->commands->save($discord->application->commands->create($command));
             }
         }
     }

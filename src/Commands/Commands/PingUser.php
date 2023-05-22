@@ -66,7 +66,7 @@ class PingUser implements Command
      * @throws LengthException 
      * @throws LogicException 
      */
-    public static function getResponse(Interaction $interaction): void
+    public static function getResponse(Interaction $interaction, Discord $discord): void
     {
         $interaction->respondWithMessage(MessageBuilder::new()->setContent($interaction->data->resolved->users->first()));
     }

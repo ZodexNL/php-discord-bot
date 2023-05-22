@@ -4,6 +4,7 @@ namespace src\Commands\Commands;
 
 use Discord\Builders\MessageBuilder;
 use Discord\Discord;
+use Discord\Parts\Embed\Embed;
 use Discord\Parts\Interactions\Command\Option;
 use Discord\Parts\Interactions\Interaction;
 use LengthException;
@@ -61,5 +62,16 @@ class Ping implements Command
     public static function getResponse(Interaction $interaction, Discord $discord): void
     {
         $interaction->respondWithMessage(MessageBuilder::new()->setContent('Pong!'));
+    }
+
+    /**
+     * Return the embed
+     * @param Discord $discord 
+     * @param mixed $response 
+     * @return Embed 
+     */
+    public static function getEmbed(Discord $discord, $response): Embed
+    {
+        return new Embed($discord);
     }
 }

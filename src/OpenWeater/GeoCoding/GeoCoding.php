@@ -4,6 +4,8 @@ namespace src\OpenWeater\GeoCoding;
 
 use src\Helpers\Helpers;
 use src\OpenWeater\GeoCoding\Responses\CoordinatesResponse;
+use src\OpenWeater\GeoCoding\Responses\ZipCodeResponse;
+use stdClass;
 
 class GeoCoding
 {
@@ -23,9 +25,9 @@ class GeoCoding
      * Get a list of city's based on the search param
      * @param string $query 
      * @param int $limit maximum value: 5
-     * @return void 
+     * @return array 
      */
-    public function searchByName(string $query, int $limit)
+    public function searchByName(string $query, int $limit): array
     {
         $limit = $limit <= 5 ? $limit : 5;
 
@@ -52,8 +54,34 @@ class GeoCoding
             array_push($returnArr, new CoordinatesResponse($val));
         }
 
-        // continue
+        return $returnArr;
+    }
+
+    /**
+     * Get a city the zipcode and country code
+     * @param string $zipCode 
+     * @param string $countryCode type (ISO 3166) country code
+     * @return ZipCodeResponse 
+     */
+    public function searchByZipCode(string $zipCode, string $countryCode): ZipCodeResponse
+    {
+        $curl = curl_init();
+        $url = 'http://api.openweathermap.org/geo/1.0/zip?zip=' . $zipCode . ',' . $countryCode . '&appid=' . $this->apiKey;
+
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec($curl);
+
+        $succes = Helpers::checkCurlSucces($response, $curl);
+        if (!$succes) {
+            return 'Something went wrong';
+        }
+
+        $data = json_decode($response);
+        curl_close($curl);
 
 
+        return new ZipCodeResponse($data);
     }
 }

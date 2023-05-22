@@ -36,8 +36,8 @@ $discord->on('ready', function (Discord $discord) {
 
     // Listen for commands
     foreach ($commands->cmdNameArr as $key => $value) {
-        $discord->listenCommand($key, function (Interaction $interaction) use ($key, $value) {
-            $value::getResponse($interaction);
+        $discord->listenCommand($key, function (Interaction $interaction) use ($key, $value, $discord) {
+            $value::getResponse($interaction, $discord);
         });
     }
 });

@@ -34,9 +34,9 @@ class Ping implements Command
     /**
      * Return the options or null
      * @param Discord $discord 
-     * @return Option|null 
+     * @return array|null 
      */
-    public static function getOptions(Discord $discord): Option | null
+    public static function getOptions(Discord $discord): array | null
     {
         return null;
     }

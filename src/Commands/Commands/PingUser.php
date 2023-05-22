@@ -34,16 +34,20 @@ class PingUser implements Command
     /**
      * Get the options
      * @param Discord $discord 
-     * @return Option|null 
+     * @return array|null 
      */
-    public static function getOptions(Discord $discord): Option | null
+    public static function getOptions(Discord $discord): array | null
     {
-        return new Option($discord, [
-            'name' => 'user',
-            'description' => 'The user to ping',
-            'type' => 6,
-            'required' => true,
-        ]);
+        $arr = [
+            new Option($discord, [
+                'name' => 'user',
+                'description' => 'The user to ping',
+                'type' => 6,
+                'required' => true,
+            ])
+        ];
+
+        return $arr;
     }
 
     /**

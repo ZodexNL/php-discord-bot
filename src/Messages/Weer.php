@@ -20,8 +20,8 @@ class Weer
     public static function send(Message $message, Discord $discord): void
     {
         $method = 'GET';
-        // $url = 'http://api.openweathermap.org/geo/1.0/direct?q=london&limit=1&appid=0c3b1e92805713bf4e34e1134f85d7a8';
-        $url = 'http://api.openweathermap.org/data/2.5/weather?lat=51.5073219&lon=-0.1276474&appid=0c3b1e92805713bf4e34e1134f85d7a8';
+        // $url = '';
+        $url = '';
         $data = false;
 
 

@@ -4,18 +4,22 @@ namespace src\Commands\Commands;
 
 use Discord\Builders\MessageBuilder;
 use Discord\Discord;
-use Discord\Parts\Embed\Embed;
 use Discord\Parts\Interactions\Command\Option;
 use Discord\Parts\Interactions\Interaction;
 use Dotenv\Dotenv;
 use LengthException;
 use LogicException;
+use OverflowException;
 use src\Commands\Helpers\Command;
+use src\Commands\Traits\SearchByZipTrait;
 use src\OpenWeater\GeoCoding\GeoCoding;
-
+use src\OpenWeater\GeoCoding\Responses\Errors\Helpers\ErrorInterface;
+use src\OpenWeater\GeoCoding\Responses\ZipCodeResponse;
 
 class SearchByZip implements Command
 {
+    use SearchByZipTrait;
+
     /**
      * Get the name of the command
      * @return string 
@@ -85,58 +89,38 @@ class SearchByZip implements Command
 
         $weatherResponse = new GeoCoding($_ENV['WEATHER_API_TOKEN']);
         $response = $weatherResponse->searchByZipCode($zip, $countryCode);
-
-        echo $response->getName();
-
-        $interaction->respondWithMessage(MessageBuilder::new()->addEmbed(self::getEmbed($discord, $response)));
+        if ($response instanceof ZipCodeResponse) {
+            self::returnResponse($interaction, $discord, $response);
+        } else {
+            self::returnError($interaction, $discord, $response);
+        }
     }
 
-    // TODO: change this to trait or something to have $response strong typed
-    public static function getEmbed(Discord $discord, $response): Embed
+    /**
+     * Return this if there is an error
+     * @param Interaction $interaction 
+     * @param Discord $discord 
+     * @param ErrorInterface $response 
+     * @return void 
+     * @throws OverflowException 
+     * @throws LogicException 
+     */
+    public static function returnError(Interaction $interaction, Discord $discord, ErrorInterface $response): void
     {
-        $embedAttr = [
-            'title' => $response->getCountry(),
-            'color' => hexdec('#008000'),
-            'fields' => [],
-            'footer' => [
-                'text' => 'Roderick - made by ZodexNL using PHP-Discord'
-            ],
-        ];
+        $interaction->respondWithMessage(MessageBuilder::new()->addEmbed(self::errorEmbed($discord, $response)));
+    }
 
-        // TODO: improve this ofcourse
-
-        $embedAttr['fields'][] = [
-            'name' => 'Stad',
-            'value' => $response->getName(),
-            'inline' => true,
-        ];
-
-        $embedAttr['fields'][] = [
-            'name' => 'Postcode',
-            'value' => $response->getZip(),
-            'inline' => true,
-        ];
-
-        $embedAttr['fields'][] = [
-            'name' => '',
-            'value' => '',
-        ];
-
-
-        $embedAttr['fields'][] = [
-            'name' => 'Latitude',
-            'value' => $response->getLat(),
-            'inline' => true,
-        ];
-
-        $embedAttr['fields'][] = [
-            'name' => 'Longitude',
-            'value' => $response->getLon(),
-            'inline' => true,
-        ];
-
-
-
-        return new Embed($discord, $embedAttr);
+    /**
+     * Return the correct response
+     * @param Interaction $interaction 
+     * @param Discord $discord 
+     * @param ZipCodeResponse $response 
+     * @return void 
+     * @throws OverflowException 
+     * @throws LogicException 
+     */
+    public static function returnResponse(Interaction $interaction, Discord $discord, $response): void
+    {
+        $interaction->respondWithMessage(MessageBuilder::new()->addEmbed(self::getEmbed($discord, $response)));
     }
 }

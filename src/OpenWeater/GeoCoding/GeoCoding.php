@@ -4,8 +4,8 @@ namespace src\OpenWeater\GeoCoding;
 
 use src\Helpers\Helpers;
 use src\OpenWeater\GeoCoding\Responses\CoordinatesResponse;
+use src\OpenWeater\GeoCoding\Responses\Errors\GeoCodingError;
 use src\OpenWeater\GeoCoding\Responses\ZipCodeResponse;
-use stdClass;
 
 class GeoCoding
 {
@@ -61,9 +61,9 @@ class GeoCoding
      * Get a city the zipcode and country code
      * @param string $zipCode 
      * @param string $countryCode type (ISO 3166) country code
-     * @return ZipCodeResponse 
+     * @return ZipCodeResponse|GeoCodingError
      */
-    public function searchByZipCode(string $zipCode, string $countryCode): ZipCodeResponse
+    public function searchByZipCode(string $zipCode, string $countryCode): ZipCodeResponse|GeoCodingError
     {
         $curl = curl_init();
         $url = 'http://api.openweathermap.org/geo/1.0/zip?zip=' . $zipCode . ',' . $countryCode . '&appid=' . $this->apiKey;
@@ -82,6 +82,6 @@ class GeoCoding
         curl_close($curl);
 
 
-        return new ZipCodeResponse($data);
+        return isset($data->cod) ? new GeoCodingError($data) : new ZipCodeResponse($data);
     }
 }

@@ -37,7 +37,7 @@ class ZipCodeResponse
      * Get the zipcode
      * @return string 
      */
-    public function getZip(): string
+    public function zip(): string
     {
         return $this->obj->zip;
     }
@@ -46,7 +46,7 @@ class ZipCodeResponse
      * Get the name
      * @return string 
      */
-    public function getName(): string
+    public function name(): string
     {
         return $this->obj->name;
     }
@@ -55,7 +55,7 @@ class ZipCodeResponse
      * Get the Latitude
      * @return string 
      */
-    public function getLat(): string
+    public function lat(): string
     {
         return $this->obj->lat;
     }
@@ -64,7 +64,7 @@ class ZipCodeResponse
      * Get the Longitude
      * @return string 
      */
-    public function getLon(): string
+    public function lon(): string
     {
         return $this->obj->lon;
     }
@@ -73,7 +73,7 @@ class ZipCodeResponse
      * Get the country
      * @return string 
      */
-    public function getCountry(): string
+    public function country(): string
     {
         return $this->obj->country;
     }

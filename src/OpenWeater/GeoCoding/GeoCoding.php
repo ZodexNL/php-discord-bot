@@ -102,8 +102,6 @@ class GeoCoding
         $data = json_decode($response);
         curl_close($curl);
 
-        print_r($data);
-
         return isset($data->cod) || !isset($data['0']) ? new GeoCodingError($data) : new CoordinatesResponse($data['0']);
     }
 }

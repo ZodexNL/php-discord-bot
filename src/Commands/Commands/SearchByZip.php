@@ -10,13 +10,13 @@ use Dotenv\Dotenv;
 use LengthException;
 use LogicException;
 use OverflowException;
-use src\Commands\Helpers\Command;
+use src\Commands\Helpers\ResponseCommand;
 use src\Commands\Traits\SearchByZipTrait;
 use src\OpenWeater\GeoCoding\GeoCoding;
 use src\OpenWeater\GeoCoding\Responses\Errors\Helpers\ErrorInterface;
 use src\OpenWeater\GeoCoding\Responses\ZipCodeResponse;
 
-class SearchByZip implements Command
+class SearchByZip implements ResponseCommand
 {
     use SearchByZipTrait;
 

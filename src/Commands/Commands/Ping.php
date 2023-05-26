@@ -10,7 +10,7 @@ use Discord\Parts\Interactions\Interaction;
 use LengthException;
 use LogicException;
 use src\Commands\Helpers\Command;
-
+use src\OpenWeater\GeoCoding\Responses\Errors\Helpers\ErrorInterface;
 
 class Ping implements Command
 {

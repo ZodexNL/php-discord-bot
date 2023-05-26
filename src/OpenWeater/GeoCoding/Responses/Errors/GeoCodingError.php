@@ -17,9 +17,22 @@ class GeoCodingError implements ErrorInterface
     /**
      * Construct the error 
      */
-    public function __construct(stdClass $data)
+    public function __construct(mixed $data)
     {
-        $this->error = $data;
+        if (!empty($data)) {
+            $this->error = $data;
+            return;
+        }
+        $this->setEmptyError();
+    }
+
+    private function setEmptyError()
+    {
+        $newObj = new stdClass();
+        $newObj->cod = 'Geen resultaten';
+        $newObj->message = 'Er zijn geen resultaten gevonden voor deze zoekopdracht';
+
+        $this->error = $newObj;
     }
 
     /**

@@ -7,7 +7,7 @@ use Discord\Discord;
 use Discord\Parts\Interactions\Command\Option;
 use Discord\Parts\Interactions\Interaction;
 use Dotenv\Dotenv;
-use src\Commands\Helpers\ResponseCommand;
+use src\Commands\Interfaces\ResponseCommand;
 use src\Commands\Traits\GeoCodingEmbedsTrait;
 use src\OpenWeater\GeoCoding\GeoCoding;
 use src\OpenWeater\GeoCoding\Responses\Errors\Helpers\ErrorInterface;

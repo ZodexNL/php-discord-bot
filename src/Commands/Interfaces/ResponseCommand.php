@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Commands\Helpers;
+namespace src\Commands\Interfaces;
 
 use Discord\Discord;
 use Discord\Parts\Interactions\Interaction;

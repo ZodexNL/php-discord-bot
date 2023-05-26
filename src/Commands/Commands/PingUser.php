@@ -7,7 +7,7 @@ use Discord\Discord;
 use Discord\Parts\Embed\Embed;
 use Discord\Parts\Interactions\Command\Option;
 use Discord\Parts\Interactions\Interaction;
-use src\Commands\Helpers\Command;
+use src\Commands\Interfaces\Command;
 
 class PingUser implements Command
 {

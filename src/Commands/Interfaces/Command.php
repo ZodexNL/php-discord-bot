@@ -1,8 +1,9 @@
 <?php
 
-namespace src\Commands\Helpers;
+namespace src\Commands\Interfaces;
 
 use Discord\Discord;
+use Discord\Parts\Embed\Embed;
 use Discord\Parts\Interactions\Interaction;
 use src\OpenWeater\GeoCoding\Responses\Errors\Helpers\ErrorInterface;
 
@@ -40,4 +41,12 @@ interface Command
      * @return void 
      */
     public static function getResponse(Interaction $interaction, Discord $discord): void;
+
+    /**
+     * Get the embed of the command
+     * @param Discord $discord 
+     * @param mixed $response 
+     * @return src\Commands\Interfaces\Embed 
+     */
+    public static function getEmbed(Discord $discord, $response): Embed;
 }

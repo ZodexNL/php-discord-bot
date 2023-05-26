@@ -73,15 +73,37 @@ class GeoCoding
 
         $response = curl_exec($curl);
 
-        $succes = Helpers::checkCurlSucces($response, $curl);
-        if (!$succes) {
-            return 'Something went wrong';
-        }
+        Helpers::checkCurlSucces($response, $curl);
 
         $data = json_decode($response);
         curl_close($curl);
 
 
         return isset($data->cod) ? new GeoCodingError($data) : new ZipCodeResponse($data);
+    }
+
+    /**
+     * Search a city by coordinates
+     * @param string $lat 
+     * @param string $lon 
+     * @return CoordinatesResponse|GeoCodingError 
+     */
+    public function searchByCoords(string $lat, string $lon): CoordinatesResponse|GeoCodingError
+    {
+        $curl = curl_init();
+        $url = 'http://api.openweathermap.org/geo/1.0/reverse?lat=' . $lat . '&lon=' . $lon . '&limit=1&appid=' . $this->apiKey;
+
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($curl);
+
+        Helpers::checkCurlSucces($response, $curl);
+
+        $data = json_decode($response);
+        curl_close($curl);
+
+        print_r($data);
+
+        return isset($data->cod) || !isset($data['0']) ? new GeoCodingError($data) : new CoordinatesResponse($data['0']);
     }
 }

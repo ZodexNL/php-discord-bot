@@ -11,14 +11,14 @@ use LengthException;
 use LogicException;
 use OverflowException;
 use src\Commands\Helpers\ResponseCommand;
-use src\Commands\Traits\SearchByZipTrait;
+use src\Commands\Traits\GeoCodingEmbedsTrait;
 use src\OpenWeater\GeoCoding\GeoCoding;
 use src\OpenWeater\GeoCoding\Responses\Errors\Helpers\ErrorInterface;
 use src\OpenWeater\GeoCoding\Responses\ZipCodeResponse;
 
 class SearchByZip implements ResponseCommand
 {
-    use SearchByZipTrait;
+    use GeoCodingEmbedsTrait;
 
     /**
      * Get the name of the command
@@ -121,6 +121,6 @@ class SearchByZip implements ResponseCommand
      */
     public static function returnResponse(Interaction $interaction, Discord $discord, $response): void
     {
-        $interaction->respondWithMessage(MessageBuilder::new()->addEmbed(self::getEmbed($discord, $response)));
+        $interaction->respondWithMessage(MessageBuilder::new()->addEmbed(self::searchByZipEmbed($discord, $response)));
     }
 }

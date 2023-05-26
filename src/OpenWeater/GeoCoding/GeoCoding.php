@@ -5,6 +5,7 @@ namespace src\OpenWeater\GeoCoding;
 use src\Helpers\Helpers;
 use src\OpenWeater\GeoCoding\Responses\CoordinatesResponse;
 use src\OpenWeater\GeoCoding\Responses\Errors\GeoCodingError;
+use src\OpenWeater\GeoCoding\Responses\NameResponse;
 use src\OpenWeater\GeoCoding\Responses\ZipCodeResponse;
 
 class GeoCoding
@@ -24,37 +25,24 @@ class GeoCoding
     /**
      * Get a list of city's based on the search param
      * @param string $query 
-     * @param int $limit maximum value: 5
-     * @return array 
+     * @return NameResponse|GeoCodingError 
      */
-    public function searchByName(string $query, int $limit): array
+    public function searchByName(string $query): NameResponse|GeoCodingError
     {
-        $limit = $limit <= 5 ? $limit : 5;
-
         $curl = curl_init();
-        $url = 'http://api.openweathermap.org/geo/1.0/direct?q=' . $query . '&limit=' . $limit . '&appid=' . $this->apiKey;
+        $url = 'http://api.openweathermap.org/geo/1.0/direct?q=' . $query . '&limit=1&appid=' . $this->apiKey;
 
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
         $response = curl_exec($curl);
 
-        $succes = Helpers::checkCurlSucces($response, $curl);
-        if (!$succes) {
-            return 'Something went wrong';
-        }
+        Helpers::checkCurlSucces($response, $curl);
 
         $data = json_decode($response);
         curl_close($curl);
 
-
-
-        $returnArr = [];
-        foreach ($data as $val) {
-            array_push($returnArr, new CoordinatesResponse($val));
-        }
-
-        return $returnArr;
+        return isset($data->cod) || !isset($data['0']) ? new GeoCodingError($data) : new NameResponse($data['0']);
     }
 
     /**

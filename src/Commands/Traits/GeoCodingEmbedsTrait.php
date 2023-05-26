@@ -6,6 +6,7 @@ use Discord\Discord;
 use Discord\Parts\Embed\Embed;
 use src\OpenWeater\GeoCoding\Responses\CoordinatesResponse;
 use src\OpenWeater\GeoCoding\Responses\Errors\Helpers\ErrorInterface;
+use src\OpenWeater\GeoCoding\Responses\NameResponse;
 use src\OpenWeater\GeoCoding\Responses\ZipCodeResponse;
 
 trait GeoCodingEmbedsTrait
@@ -84,7 +85,57 @@ trait GeoCodingEmbedsTrait
         ];
 
         $embedAttr['fields'][] = [
-            'name' => 'Postcode',
+            'name' => 'Stad',
+            'value' => $response->state(),
+            'inline' => true,
+        ];
+
+        $embedAttr['fields'][] = [
+            'name' => '',
+            'value' => '',
+        ];
+
+
+        $embedAttr['fields'][] = [
+            'name' => 'Latitude',
+            'value' => $response->lat(),
+            'inline' => true,
+        ];
+
+        $embedAttr['fields'][] = [
+            'name' => 'Longitude',
+            'value' => $response->lon(),
+            'inline' => true,
+        ];
+
+        return new Embed($discord, $embedAttr);
+    }
+
+    /**
+     * Return the embed
+     * @param Discord $discord 
+     * @param NameResponse $response 
+     * @return Embed 
+     */
+    public static function searchByNameEmbed(Discord $discord, NameResponse $response): Embed
+    {
+        $embedAttr = [
+            'title' => $response->country(),
+            'color' => hexdec('#008000'),
+            'fields' => [],
+            'footer' => [
+                'text' => 'Roderick - made by ZodexNL using PHP-Discord'
+            ],
+        ];
+
+        $embedAttr['fields'][] = [
+            'name' => 'Stad',
+            'value' => $response->name(),
+            'inline' => true,
+        ];
+
+        $embedAttr['fields'][] = [
+            'name' => 'Provinvie/staat',
             'value' => $response->state(),
             'inline' => true,
         ];

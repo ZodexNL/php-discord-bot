@@ -4,10 +4,10 @@ namespace src\Commands\Traits;
 
 use Discord\Discord;
 use Discord\Parts\Embed\Embed;
-use src\OpenWeater\GeoCoding\Responses\CoordinatesResponse;
-use src\OpenWeater\GeoCoding\Responses\Errors\Helpers\ErrorInterface;
-use src\OpenWeater\GeoCoding\Responses\NameResponse;
-use src\OpenWeater\GeoCoding\Responses\ZipCodeResponse;
+use src\OpenWeather\GeoCoding\Responses\CoordinatesResponse;
+use src\OpenWeather\GeoCoding\Responses\Errors\Helpers\ErrorInterface;
+use src\OpenWeather\GeoCoding\Responses\NameResponse;
+use src\OpenWeather\GeoCoding\Responses\ZipCodeResponse;
 
 trait GeoCodingEmbedsTrait
 {

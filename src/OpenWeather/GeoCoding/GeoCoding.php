@@ -1,12 +1,12 @@
 <?php
 
-namespace src\OpenWeater\GeoCoding;
+namespace src\OpenWeather\GeoCoding;
 
 use src\Helpers\Helpers;
-use src\OpenWeater\GeoCoding\Responses\CoordinatesResponse;
-use src\OpenWeater\GeoCoding\Responses\Errors\GeoCodingError;
-use src\OpenWeater\GeoCoding\Responses\NameResponse;
-use src\OpenWeater\GeoCoding\Responses\ZipCodeResponse;
+use src\OpenWeather\GeoCoding\Responses\CoordinatesResponse;
+use src\OpenWeather\GeoCoding\Responses\Errors\GeoCodingError;
+use src\OpenWeather\GeoCoding\Responses\NameResponse;
+use src\OpenWeather\GeoCoding\Responses\ZipCodeResponse;
 
 class GeoCoding
 {

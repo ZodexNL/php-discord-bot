@@ -1,6 +1,6 @@
 <?php
 
-namespace src\OpenWeater\GeoCoding\Responses\Errors\Helpers;
+namespace src\OpenWeather\GeoCoding\Responses\Errors\Helpers;
 
 use stdClass;
 

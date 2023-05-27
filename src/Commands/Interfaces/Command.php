@@ -5,7 +5,7 @@ namespace src\Commands\Interfaces;
 use Discord\Discord;
 use Discord\Parts\Embed\Embed;
 use Discord\Parts\Interactions\Interaction;
-use src\OpenWeater\GeoCoding\Responses\Errors\Helpers\ErrorInterface;
+use src\OpenWeather\GeoCoding\Responses\Errors\Helpers\ErrorInterface;
 
 interface Command
 {

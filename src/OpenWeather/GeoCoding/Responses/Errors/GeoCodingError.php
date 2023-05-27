@@ -1,8 +1,8 @@
 <?php
 
-namespace src\OpenWeater\GeoCoding\Responses\Errors;
+namespace src\OpenWeather\GeoCoding\Responses\Errors;
 
-use src\OpenWeater\GeoCoding\Responses\Errors\Helpers\ErrorInterface;
+use src\OpenWeather\GeoCoding\Responses\Errors\Helpers\ErrorInterface;
 use stdClass;
 
 /**

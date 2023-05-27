@@ -58,7 +58,7 @@ class SearchByZip implements ResponseCommand
         $zip = $interaction->data->options['zipcode']->value;
         $countryCode = $interaction->data->options['countrycode']->value;
 
-        $weatherResponse = new GeoCoding($_ENV['WEATHER_API_TOKEN']);
+        $weatherResponse = new GeoCoding();
         $response = $weatherResponse->searchByZipCode($zip, $countryCode);
         if ($response instanceof ZipCodeResponse) {
             self::returnResponse($interaction, $discord, $response);

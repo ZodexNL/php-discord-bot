@@ -31,9 +31,9 @@ class CurlResponse
 
     /**
      * Initialize curl and return the respone
-     * @return stdClass|null
+     * @return stdClass|null|array
      */
-    public function returnData(): stdClass|null
+    public function returnData(): stdClass|null|array
     {
         $dotEnv = Dotenv::createImmutable(__DIR__ . '/../../../')->load();
         $apiKey = $_ENV['WEATHER_API_TOKEN'];

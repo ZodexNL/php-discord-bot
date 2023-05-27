@@ -50,7 +50,7 @@ class SearchByName implements ResponseCommand
 
         $city = $interaction->data->options['city']->value;
 
-        $weatherResponse = new GeoCoding($_ENV['WEATHER_API_TOKEN']);
+        $weatherResponse = new GeoCoding();
         $response = $weatherResponse->searchByName($city);
         if ($response instanceof NameResponse) {
             self::returnResponse($interaction, $discord, $response);

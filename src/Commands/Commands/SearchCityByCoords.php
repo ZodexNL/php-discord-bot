@@ -57,7 +57,7 @@ class SearchCityByCoords implements ResponseCommand
         $lat = $interaction->data->options['latitude']->value;
         $lon = $interaction->data->options['longitude']->value;
 
-        $weatherResponse = new GeoCoding($_ENV['WEATHER_API_TOKEN']);
+        $weatherResponse = new GeoCoding();
         $response = $weatherResponse->searchByCoords($lat, $lon);
         if ($response instanceof CoordinatesResponse) {
             self::returnResponse($interaction, $discord, $response);

@@ -2,9 +2,6 @@
 
 namespace src\OpenWeather\CurrentWeather;
 
-use Dotenv\Exception\InvalidPathException;
-use Dotenv\Exception\InvalidEncodingException;
-use Dotenv\Exception\InvalidFileException;
 use src\OpenWeather\CurlHelper\CurlResponse;
 use src\OpenWeather\CurrentWeather\Responses\Errors\WeatherError;
 use src\OpenWeather\CurrentWeather\Responses\WeatherByNameResponse;

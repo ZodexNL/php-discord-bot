@@ -9,6 +9,12 @@ use src\OpenWeather\GeoCoding\Responses\Errors\Helpers\ErrorInterface;
 
 trait CurrentWeatherEmbedsTrait
 {
+    /**
+     * Get the embed
+     * @param Discord $discord 
+     * @param WeatherByNameResponse $response 
+     * @return Embed 
+     */
     public static function searchByNameEmbed(Discord $discord, WeatherByNameResponse $response): Embed
     {
         $embedAttr = [
